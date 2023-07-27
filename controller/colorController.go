@@ -35,6 +35,8 @@ func GetAllColor(c *gin.Context) {
 // @Description Creating a new Color.
 // @Tags Color
 // @Param Body body ColorInput true "the body to create a new Color"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Produce json
 // @Success 200 {object} models.Color
 // @Router /colors [post]
@@ -101,6 +103,8 @@ func GetPhonesByColorId(c *gin.Context) { // Get model if exist
 // @Tags Color
 // @Produce json
 // @Param id path string true "Color id"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Param Body body ColorInput true "the body to update age rating category"
 // @Success 200 {object} models.Color
 // @Router /colors/{id} [patch]
@@ -136,6 +140,8 @@ func UpdateColor(c *gin.Context) {
 // @Tags Color
 // @Produce json
 // @Param id path string true "Color id"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Success 200 {object} map[string]boolean
 // @Router /colors/{id} [delete]
 func DeleteColor(c *gin.Context) {

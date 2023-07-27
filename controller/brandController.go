@@ -35,6 +35,8 @@ func GetAllBrand(c *gin.Context) {
 // @Description Creating a new Brand.
 // @Tags Brand
 // @Param Body body BrandInput true "the body to create a new Brand"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Produce json
 // @Success 200 {object} models.Brand
 // @Router /brands [post]
@@ -123,6 +125,8 @@ func GetModelsByBrandId(c *gin.Context) { // Get model if exist
 // @Produce json
 // @Param id path string true "Brand id"
 // @Param Body body BrandInput true "the body to update age rating category"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Success 200 {object} models.Brand
 // @Router /brands/{id} [patch]
 func UpdateBrand(c *gin.Context) {
@@ -157,6 +161,8 @@ func UpdateBrand(c *gin.Context) {
 // @Tags Brand
 // @Produce json
 // @Param id path string true "Brand id"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Success 200 {object} map[string]boolean
 // @Router /brands/{id} [delete]
 func DeleteBrand(c *gin.Context) {

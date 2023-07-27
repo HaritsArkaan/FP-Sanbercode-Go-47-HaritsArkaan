@@ -36,6 +36,8 @@ func GetAllModel(c *gin.Context) {
 // @Description Creating a new Model.
 // @Tags Model
 // @Param Body body ModelInput true "the body to create a new Model"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Produce json
 // @Success 200 {object} models.Model
 // @Router /models [post]
@@ -102,6 +104,8 @@ func GetPhonesByModelId(c *gin.Context) { // Get model if exist
 // @Tags Model
 // @Produce json
 // @Param id path string true "Model id"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Param Body body ModelInput true "the body to update age rating category"
 // @Success 200 {object} models.Model
 // @Router /models/{id} [patch]
@@ -138,6 +142,8 @@ func UpdateModel(c *gin.Context) {
 // @Tags Model
 // @Produce json
 // @Param id path string true "Model id"
+// @Param Authorization header string true "Authorization. How to input in swagger : 'Bearer <insert_your_token_here>'"
+// @Security BearerToken
 // @Success 200 {object} map[string]boolean
 // @Router /models/{id} [delete]
 func DeleteModel(c *gin.Context) {

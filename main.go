@@ -4,6 +4,10 @@ import (
 	"FP-Sanbercode-Go-47-HaritsArkaanPutranto/config"
 	"FP-Sanbercode-Go-47-HaritsArkaanPutranto/docs"
 	"FP-Sanbercode-Go-47-HaritsArkaanPutranto/routes"
+	"FP-Sanbercode-Go-47-HaritsArkaanPutranto/utils"
+	"log"
+
+	"github.com/joho/godotenv"
 )
 
 // @contact.name API Support
@@ -16,6 +20,16 @@ import (
 // @termsOfService http://swagger.io/terms/
 
 func main() {
+	// for load godotenv
+	// for env
+	environment := utils.Getenv("ENVIRONMENT", "development")
+
+	if environment == "development" {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
+	}
 	//programmatically set swagger info
 	docs.SwaggerInfo.Title = "Swagger Example API"
 	docs.SwaggerInfo.Description = "This is a sample server Movie."
@@ -23,10 +37,11 @@ func main() {
 	docs.SwaggerInfo.Host = "localhost:8080"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
+	//database connection
 	db := config.ConnectDataBase()
 	sqlDB, _ := db.DB()
 	defer sqlDB.Close()
 
 	r := routes.SetupRouter(db)
-	r.Run()
+	r.Run("localhost:8080")
 }

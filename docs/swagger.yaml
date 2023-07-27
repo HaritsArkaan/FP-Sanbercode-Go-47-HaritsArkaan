@@ -140,6 +140,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/controller.BrandInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -147,6 +152,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Brand'
+      security:
+      - BearerToken: []
       summary: Create New Brand.
       tags:
       - Brand
@@ -159,6 +166,11 @@ paths:
         name: id
         required: true
         type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -168,6 +180,8 @@ paths:
             additionalProperties:
               type: boolean
             type: object
+      security:
+      - BearerToken: []
       summary: Delete one Brand.
       tags:
       - Brand
@@ -203,6 +217,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/controller.BrandInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -210,6 +229,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Brand'
+      security:
+      - BearerToken: []
       summary: Update Brand.
       tags:
       - Brand
@@ -279,6 +300,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/controller.ColorInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -286,6 +312,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Color'
+      security:
+      - BearerToken: []
       summary: Create New Color.
       tags:
       - Color
@@ -298,6 +326,11 @@ paths:
         name: id
         required: true
         type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -307,6 +340,8 @@ paths:
             additionalProperties:
               type: boolean
             type: object
+      security:
+      - BearerToken: []
       summary: Delete one Color.
       tags:
       - Color
@@ -336,6 +371,11 @@ paths:
         name: id
         required: true
         type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: the body to update age rating category
         in: body
         name: Body
@@ -349,6 +389,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Color'
+      security:
+      - BearerToken: []
       summary: Update Color.
       tags:
       - Color
@@ -418,6 +460,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/controller.ModelInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -425,6 +472,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Model'
+      security:
+      - BearerToken: []
       summary: Create New Model.
       tags:
       - Model
@@ -437,6 +486,11 @@ paths:
         name: id
         required: true
         type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -446,6 +500,8 @@ paths:
             additionalProperties:
               type: boolean
             type: object
+      security:
+      - BearerToken: []
       summary: Delete one Model.
       tags:
       - Model
@@ -475,6 +531,11 @@ paths:
         name: id
         required: true
         type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: the body to update age rating category
         in: body
         name: Body
@@ -488,6 +549,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Model'
+      security:
+      - BearerToken: []
       summary: Update Model.
       tags:
       - Model
@@ -536,6 +599,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/controller.PhoneInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -543,6 +611,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Phone'
+      security:
+      - BearerToken: []
       summary: Create New Phone.
       tags:
       - Phone
@@ -555,6 +625,11 @@ paths:
         name: id
         required: true
         type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -564,6 +639,8 @@ paths:
             additionalProperties:
               type: boolean
             type: object
+      security:
+      - BearerToken: []
       summary: Delete one Phone.
       tags:
       - Phone
@@ -593,6 +670,11 @@ paths:
         name: id
         required: true
         type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
       - description: the body to update age rating category
         in: body
         name: Body
@@ -606,6 +688,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Phone'
+      security:
+      - BearerToken: []
       summary: Update Phone.
       tags:
       - Phone
