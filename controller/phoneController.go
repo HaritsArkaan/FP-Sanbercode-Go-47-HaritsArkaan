@@ -11,11 +11,12 @@ import (
 )
 
 type PhoneInput struct {
-	BrandID uint   `json:"brand_id"`
-	ColorID uint   `json:"color_id"`
-	ModelID uint   `json:"model_id"`
-	Price   string `json:"price"`
-	Storage uint   `json:"storage"`
+	BrandID  uint   `json:"brand_id"`
+	ColorID  uint   `json:"color_id"`
+	ModelID  uint   `json:"model_id"`
+	ReviewID uint   `json:review_id`
+	Price    string `json:"price"`
+	Storage  uint   `json:"storage"`
 }
 
 // GetAllPhone godoc
@@ -53,7 +54,7 @@ func CreatePhone(c *gin.Context) {
 	}
 
 	// Create Phone
-	phone := models.Phone{BrandID: input.BrandID, ColorID: input.ColorID, ModelID: input.ModelID, Price: input.Price, Storage: input.Storage}
+	phone := models.Phone{BrandID: input.BrandID, ColorID: input.ColorID, ModelID: input.ModelID, ReviewID: input.ReviewID, Price: input.Price, Storage: input.Storage}
 	db := c.MustGet("db").(*gorm.DB)
 	db.Create(&phone)
 
@@ -112,6 +113,7 @@ func UpdatePhone(c *gin.Context) {
 	updatedInput.BrandID = input.BrandID
 	updatedInput.ColorID = input.ColorID
 	updatedInput.ModelID = input.ModelID
+	updatedInput.ReviewID = input.ReviewID
 	updatedInput.Price = input.Price
 	updatedInput.Storage = input.Storage
 	updatedInput.UpdatedAt = time.Now()

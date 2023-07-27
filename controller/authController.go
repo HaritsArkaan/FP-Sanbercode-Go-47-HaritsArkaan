@@ -18,6 +18,7 @@ type RegisterInput struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
 	Email    string `json:"email" binding:"required"`
+	Role     string `json:"role" binding:"required"`
 }
 
 // LoginUser godoc
@@ -81,6 +82,7 @@ func Register(c *gin.Context) {
 	u.Username = input.Username
 	u.Email = input.Email
 	u.Password = input.Password
+	u.Role = input.Role
 
 	_, err := u.SaveUser(db)
 
