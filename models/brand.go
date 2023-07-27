@@ -12,6 +12,6 @@ type (
 		CreatedAt time.Time `json:"created_at"`
 		UpdatedAt time.Time `json:"updated_at"`
 		Phones    []Phone   `json:"-"`
-		// Models    []Model   `json:"-"`
+		Models    []Model   `json:"-"`
 	}
 )
