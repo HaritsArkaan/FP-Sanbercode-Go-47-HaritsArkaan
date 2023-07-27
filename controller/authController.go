@@ -1,4 +1,4 @@
-package controllers
+package controller
 
 import (
 	"FP-Sanbercode-Go-47-HaritsArkaanPutranto/models"

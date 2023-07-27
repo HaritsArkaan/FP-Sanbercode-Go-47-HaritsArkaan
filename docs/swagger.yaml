@@ -1,5 +1,15 @@
 definitions:
-  controllers.LoginInput:
+  controller.BrandInput:
+    properties:
+      name:
+        type: string
+    type: object
+  controller.ColorInput:
+    properties:
+      name:
+        type: string
+    type: object
+  controller.LoginInput:
     properties:
       password:
         type: string
@@ -9,7 +19,27 @@ definitions:
     - password
     - username
     type: object
-  controllers.RegisterInput:
+  controller.ModelInput:
+    properties:
+      brand_id:
+        type: integer
+      name:
+        type: string
+    type: object
+  controller.PhoneInput:
+    properties:
+      brand_id:
+        type: integer
+      color_id:
+        type: integer
+      model_id:
+        type: integer
+      price:
+        type: string
+      storage:
+        type: integer
+    type: object
+  controller.RegisterInput:
     properties:
       email:
         type: string
@@ -22,9 +52,327 @@ definitions:
     - password
     - username
     type: object
+  models.Brand:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Color:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Model:
+    properties:
+      brand_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.Phone:
+    properties:
+      brand_id:
+        type: integer
+      color_id:
+        type: integer
+      created_at:
+        type: string
+      id:
+        type: integer
+      model_id:
+        type: integer
+      price:
+        type: string
+      storage:
+        type: integer
+      updated_at:
+        type: string
+    type: object
 info:
-  contact: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
 paths:
+  /brands:
+    get:
+      description: Get a list of Brand.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Brand'
+            type: array
+      summary: Get all Brand.
+      tags:
+      - Brand
+    post:
+      description: Creating a new Brand.
+      parameters:
+      - description: the body to create a new Brand
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.BrandInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Brand'
+      summary: Create New Brand.
+      tags:
+      - Brand
+  /brands/{id}:
+    delete:
+      description: Delete a Brand by id.
+      parameters:
+      - description: Brand id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      summary: Delete one Brand.
+      tags:
+      - Brand
+    get:
+      description: Get an Brand by id.
+      parameters:
+      - description: Brand id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Brand'
+      summary: Get Brand.
+      tags:
+      - Brand
+    patch:
+      description: Update Brand by id.
+      parameters:
+      - description: Brand id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update age rating category
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.BrandInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Brand'
+      summary: Update Brand.
+      tags:
+      - Brand
+  /brands/{id}/models:
+    get:
+      description: Get all Models by BrandId.
+      parameters:
+      - description: Brand id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Model'
+            type: array
+      summary: Get Models.
+      tags:
+      - Brand
+  /brands/{id}/phones:
+    get:
+      description: Get all Phones by BrandId.
+      parameters:
+      - description: Brand id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Phone'
+            type: array
+      summary: Get Phones.
+      tags:
+      - Brand
+  /colors:
+    get:
+      description: Get a list of Color.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Color'
+            type: array
+      summary: Get all Color.
+      tags:
+      - Color
+    post:
+      description: Creating a new Color.
+      parameters:
+      - description: the body to create a new Color
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.ColorInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Color'
+      summary: Create New Color.
+      tags:
+      - Color
+  /colors/{id}:
+    delete:
+      description: Delete a Color by id.
+      parameters:
+      - description: Color id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      summary: Delete one Color.
+      tags:
+      - Color
+    get:
+      description: Get an Color by id.
+      parameters:
+      - description: Color id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Color'
+      summary: Get Color.
+      tags:
+      - Color
+    patch:
+      description: Update Color by id.
+      parameters:
+      - description: Color id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update age rating category
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.ColorInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Color'
+      summary: Update Color.
+      tags:
+      - Color
+  /colors/{id}/phones:
+    get:
+      description: Get all Phones by ColorId.
+      parameters:
+      - description: Color id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Phone'
+            type: array
+      summary: Get Phones.
+      tags:
+      - Color
   /login:
     post:
       description: Logging in to get jwt token to access admin or user api by roles.
@@ -34,7 +382,7 @@ paths:
         name: Body
         required: true
         schema:
-          $ref: '#/definitions/controllers.LoginInput'
+          $ref: '#/definitions/controller.LoginInput'
       produces:
       - application/json
       responses:
@@ -46,6 +394,221 @@ paths:
       summary: Login as as user.
       tags:
       - Auth
+  /models:
+    get:
+      description: Get a list of Model.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Model'
+            type: array
+      summary: Get all Model.
+      tags:
+      - Model
+    post:
+      description: Creating a new Model.
+      parameters:
+      - description: the body to create a new Model
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.ModelInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Model'
+      summary: Create New Model.
+      tags:
+      - Model
+  /models/{id}:
+    delete:
+      description: Delete a Model by id.
+      parameters:
+      - description: Model id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      summary: Delete one Model.
+      tags:
+      - Model
+    get:
+      description: Get an Model by id.
+      parameters:
+      - description: Model id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Model'
+      summary: Get Model.
+      tags:
+      - Model
+    patch:
+      description: Update Model by id.
+      parameters:
+      - description: Model id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update age rating category
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.ModelInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Model'
+      summary: Update Model.
+      tags:
+      - Model
+  /models/{id}/phones:
+    get:
+      description: Get all Phones by ModelId.
+      parameters:
+      - description: Model id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Phone'
+            type: array
+      summary: Get Phones.
+      tags:
+      - Model
+  /phones:
+    get:
+      description: Get a list of Phone.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Phone'
+            type: array
+      summary: Get all Phone.
+      tags:
+      - Phone
+    post:
+      description: Creating a new Phone.
+      parameters:
+      - description: the body to create a new Phone
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.PhoneInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Phone'
+      summary: Create New Phone.
+      tags:
+      - Phone
+  /phones/{id}:
+    delete:
+      description: Delete a Phone by id.
+      parameters:
+      - description: Phone id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      summary: Delete one Phone.
+      tags:
+      - Phone
+    get:
+      description: Get an Phone by id.
+      parameters:
+      - description: Phone id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Phone'
+      summary: Get Phone.
+      tags:
+      - Phone
+    patch:
+      description: Update Phone by id.
+      parameters:
+      - description: Phone id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update age rating category
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.PhoneInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Phone'
+      summary: Update Phone.
+      tags:
+      - Phone
   /register:
     post:
       description: registering a user from public access.
@@ -55,7 +618,7 @@ paths:
         name: Body
         required: true
         schema:
-          $ref: '#/definitions/controllers.RegisterInput'
+          $ref: '#/definitions/controller.RegisterInput'
       produces:
       - application/json
       responses:
