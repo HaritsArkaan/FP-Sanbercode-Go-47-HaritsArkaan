@@ -22,6 +22,7 @@ type (
 		CreatedAt time.Time `json:"created_at"`
 		UpdatedAt time.Time `json:"updated_at"`
 		Reviews   []Review  `json:"-"`
+		Ratings   []Rating  `json:"-"`
 	}
 )
 
@@ -30,31 +31,26 @@ func VerifyPassword(password, hashedPassword string) error {
 }
 
 func LoginCheck(username string, password string, db *gorm.DB) (string, error) {
-
 	var err error
 
 	u := User{}
 
 	err = db.Model(User{}).Where("username = ?", username).Take(&u).Error
-
 	if err != nil {
 		return "", err
 	}
 
 	err = VerifyPassword(password, u.Password)
-
 	if err != nil && err == bcrypt.ErrMismatchedHashAndPassword {
 		return "", err
 	}
 
-	token, err := token.GenerateToken(u.ID)
-
+	token, err := token.GenerateToken(u.ID, u.Role) // Pass the user's role to GenerateToken function
 	if err != nil {
 		return "", err
 	}
 
-	return token, nil
-
+	return token, nil // Return the token
 }
 
 func (u *User) SaveUser(db *gorm.DB) (*User, error) {

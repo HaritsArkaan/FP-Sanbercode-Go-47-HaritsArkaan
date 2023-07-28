@@ -56,11 +56,29 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	r.GET("/phones", controller.GetAllPhone)
 	r.GET("/phones/:id", controller.GetPhoneById)
 
-	phonesMiddlewareRoute := r.Group("/phone")
+	phonesMiddlewareRoute := r.Group("/phones")
 	phonesMiddlewareRoute.Use(middlewares.JwtAuthMiddleware())
 	phonesMiddlewareRoute.POST("/", controller.CreatePhone)
 	phonesMiddlewareRoute.PATCH("/:id", controller.UpdatePhone)
 	phonesMiddlewareRoute.DELETE("/:id", controller.DeletePhone)
+
+	r.GET("/reviews", controller.GetAllReview)
+	r.GET("/reviews/:id", controller.GetReviewById)
+
+	reviewsMiddlewareRoute := r.Group("/reviews")
+	reviewsMiddlewareRoute.Use(middlewares.JwtAuthMiddleware())
+	reviewsMiddlewareRoute.POST("/", controller.CreateReview)
+	reviewsMiddlewareRoute.PATCH("/:id", controller.UpdateReview)
+	reviewsMiddlewareRoute.DELETE("/:id", controller.DeleteReview)
+
+	r.GET("/ratings", controller.GetAllRating)
+	r.GET("/ratings/:id", controller.GetRatingById)
+
+	ratingMiddlewareRoute := r.Group("/ratings")
+	ratingMiddlewareRoute.Use(middlewares.JwtAuthMiddleware())
+	ratingMiddlewareRoute.POST("/", controller.CreateRating)
+	ratingMiddlewareRoute.PATCH("/:id", controller.UpdateRating)
+	ratingMiddlewareRoute.DELETE("/:id", controller.DeleteRating)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

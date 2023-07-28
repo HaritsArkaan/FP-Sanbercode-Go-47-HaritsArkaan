@@ -44,7 +44,6 @@ func Login(c *gin.Context) {
 	u.Password = input.Password
 
 	token, err := models.LoginCheck(u.Username, u.Password, db)
-
 	if err != nil {
 		fmt.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "username or password is incorrect."})
@@ -57,7 +56,6 @@ func Login(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "login success", "user": user, "token": token})
-
 }
 
 // Register godoc

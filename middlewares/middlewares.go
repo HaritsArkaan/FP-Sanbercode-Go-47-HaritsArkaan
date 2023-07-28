@@ -16,6 +16,18 @@ func JwtAuthMiddleware() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
+
+		// Extract the user's role from the token
+		role, err := token.ExtractUserRole(c)
+		if err != nil {
+			c.String(http.StatusUnauthorized, "Invalid token")
+			c.Abort()
+			return
+		}
+
+		// Set the user's role in the context
+		c.Set("user_role", role)
+
 		c.Next()
 	}
 }

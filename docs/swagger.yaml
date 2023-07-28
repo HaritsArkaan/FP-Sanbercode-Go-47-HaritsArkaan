@@ -36,7 +36,16 @@ definitions:
         type: integer
       price:
         type: string
+      review_id:
+        type: integer
       storage:
+        type: integer
+    type: object
+  controller.RatingInput:
+    properties:
+      rating:
+        type: integer
+      user_id:
         type: integer
     type: object
   controller.RegisterInput:
@@ -45,12 +54,22 @@ definitions:
         type: string
       password:
         type: string
+      role:
+        type: string
       username:
         type: string
     required:
     - email
     - password
+    - role
     - username
+    type: object
+  controller.ReviewInput:
+    properties:
+      text:
+        type: string
+      user_id:
+        type: integer
     type: object
   models.Brand:
     properties:
@@ -101,10 +120,40 @@ definitions:
         type: integer
       price:
         type: string
+      rating_id:
+        type: integer
+      review_id:
+        type: integer
       storage:
         type: integer
       updated_at:
         type: string
+    type: object
+  models.Rating:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      rating:
+        type: integer
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.Review:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      text:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
     type: object
 info:
   contact:
@@ -578,6 +627,35 @@ paths:
   /phones:
     get:
       description: Get a list of Phone.
+      parameters:
+      - description: price filter (case insensitive search)
+        in: query
+        name: price
+        type: string
+      - description: Sort by price (asc or desc)
+        in: query
+        name: sortByprice
+        type: string
+      - description: Sort by BrandID (asc or desc)
+        in: query
+        name: sortByBrandID
+        type: string
+      - description: Sort by ColorID (asc or desc)
+        in: query
+        name: sortByColorID
+        type: string
+      - description: Sort by ModelD (asc or desc)
+        in: query
+        name: sortByModelD
+        type: string
+      - description: Sort by ReviewID (asc or desc)
+        in: query
+        name: sortByReviewID
+        type: string
+      - description: Sort by created_at (asc or desc)
+        in: query
+        name: sortByCreatedAt
+        type: string
       produces:
       - application/json
       responses:
@@ -693,6 +771,133 @@ paths:
       summary: Update Phone.
       tags:
       - Phone
+  /ratings:
+    get:
+      description: Get a list of Rating.
+      parameters:
+      - description: Sort by rating (asc or desc)
+        in: query
+        name: sortByRating
+        type: string
+      - description: Sort by created_at (asc or desc)
+        in: query
+        name: sortByCreatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Rating'
+            type: array
+      summary: Get all Rating.
+      tags:
+      - Rating
+    post:
+      description: Creating a new Rating.
+      parameters:
+      - description: the body to create a new Rating
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.RatingInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Rating'
+      security:
+      - BearerToken: []
+      summary: Create New Rating.
+      tags:
+      - Rating
+  /ratings/{id}:
+    delete:
+      description: Delete a Rating by id.
+      parameters:
+      - description: Rating id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete one Rating.
+      tags:
+      - Rating
+    get:
+      description: Get an Rating by id.
+      parameters:
+      - description: Rating id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Rating'
+      summary: Get Rating.
+      tags:
+      - Rating
+    patch:
+      description: Update Rating by id.
+      parameters:
+      - description: Rating id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: the body to update age rating category
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.RatingInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Rating'
+      security:
+      - BearerToken: []
+      summary: Update Rating.
+      tags:
+      - Rating
   /register:
     post:
       description: registering a user from public access.
@@ -714,4 +919,127 @@ paths:
       summary: Register a user.
       tags:
       - Auth
+  /reviews:
+    get:
+      description: Get a list of Review.
+      parameters:
+      - description: Sort by created_at (asc or desc)
+        in: query
+        name: sortByCreatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Review'
+            type: array
+      summary: Get all Review.
+      tags:
+      - Review
+    post:
+      description: Creating a new Review.
+      parameters:
+      - description: the body to create a new Review
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.ReviewInput'
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Review'
+      security:
+      - BearerToken: []
+      summary: Create New Review.
+      tags:
+      - Review
+  /reviews/{id}:
+    delete:
+      description: Delete a Review by id.
+      parameters:
+      - description: Review id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      security:
+      - BearerToken: []
+      summary: Delete one Review.
+      tags:
+      - Review
+    get:
+      description: Get an Review by id.
+      parameters:
+      - description: Review id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Review'
+      summary: Get Review.
+      tags:
+      - Review
+    patch:
+      description: Update Review by id.
+      parameters:
+      - description: Review id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 'Authorization. How to input in swagger : ''Bearer <insert_your_token_here>'''
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: the body to update age rating category
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.ReviewInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Review'
+      security:
+      - BearerToken: []
+      summary: Update Review.
+      tags:
+      - Review
 swagger: "2.0"

@@ -11,7 +11,8 @@ type (
 		BrandID   uint      `json:"brand_id"`
 		ColorID   uint      `json:"color_id"`
 		ModelID   uint      `json:"model_id"`
-		ReviewID  uint      `json:"review_id"`
+		ReviewID  uint      `gorm:"unique" json:"review_id"`
+		RatingID  uint      `gorm:"unique" json:"rating_id"`
 		Price     string    `json:"price"`
 		Storage   uint      `json:"storage"`
 		CreatedAt time.Time `json:"created_at"`
