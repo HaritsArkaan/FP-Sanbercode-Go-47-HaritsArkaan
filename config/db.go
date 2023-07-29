@@ -2,6 +2,7 @@ package config
 
 import (
 	"FP-Sanbercode-Go-47-HaritsArkaanPutranto/models"
+	"FP-Sanbercode-Go-47-HaritsArkaanPutranto/utils"
 	"fmt"
 
 	"gorm.io/driver/mysql"
@@ -9,13 +10,13 @@ import (
 )
 
 func ConnectDataBase() *gorm.DB {
-	username := "root"
-	password := "Kanarkaan73"
-	host := "tcp(127.0.0.1:3306)"
-	database := "database_handphone"
+	username := utils.Getenv("MYSQLUSER", "root")
+	password := utils.Getenv("MYSQLPASSWORD", "cACgKjvnypF9zuIOPkxd")
+	host := utils.Getenv("MYSQLHOST", "containers-us-west-71.railway.app")
+	port := utils.Getenv("MYSQLPORT", "6578")
+	database := utils.Getenv("MYSQLDATABASE", "railway")
 
-	dsn := fmt.Sprintf("%v:%v@%v/%v?charset=utf8mb4&parseTime=True&loc=Local", username, password, host, database)
-
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local", username, password, host, port, database)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {

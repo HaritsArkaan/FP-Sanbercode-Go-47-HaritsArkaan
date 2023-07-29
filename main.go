@@ -32,10 +32,12 @@ func main() {
 	}
 	//programmatically set swagger info
 	docs.SwaggerInfo.Title = "Swagger Example API"
-	docs.SwaggerInfo.Description = "This is a sample server Movie."
+	docs.SwaggerInfo.Description = "This is a sample server Phone Review."
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "localhost:8080"
-	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+	envHost := utils.Getenv("ENV_HOST", "localhost")
+	envScheme := utils.Getenv("ENV_SCHEME", "http")
+	docs.SwaggerInfo.Host = envHost
+	docs.SwaggerInfo.Schemes = []string{envScheme}
 
 	//database connection
 	db := config.ConnectDataBase()
@@ -43,5 +45,5 @@ func main() {
 	defer sqlDB.Close()
 
 	r := routes.SetupRouter(db)
-	r.Run("localhost:8080")
+	r.Run(":" + utils.Getenv("PORT", "8080"))
 }

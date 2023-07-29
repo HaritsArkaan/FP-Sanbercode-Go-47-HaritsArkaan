@@ -21,6 +21,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 
 	r.POST("/register", controller.Register)
 	r.POST("/login", controller.Login)
+	r.POST("/change-password", controller.ChangePassword)
 
 	r.GET("/brands", controller.GetAllBrand)
 	r.GET("/brands/:id", controller.GetBrandById)
